@@ -32,5 +32,5 @@ static QObject *powerd_provider(QQmlEngine *engine, QJSEngine *scriptEngine)
 void PowerdPlugin::registerTypes(const char *uri)
 {
     Q_ASSERT(uri == QLatin1String("Powerd"));
-    qmlRegisterSingletonType<Powerd>(uri, 0, 1, "Powerd", powerd_provider);
+    // qmlRegisterSingletonType<Powerd>(uri, 0, 1, "Powerd", powerd_provider);
 }
