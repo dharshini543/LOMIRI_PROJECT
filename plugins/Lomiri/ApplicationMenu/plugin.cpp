@@ -29,9 +29,6 @@ static QObject *menuRegistry(QQmlEngine *engine, QJSEngine *scriptEngine)
 void ApplicationMenuPlugin::registerTypes(const char *uri)
 {
     Q_ASSERT(uri == QLatin1String("Lomiri.ApplicationMenu"));
-
-    qmlRegisterUncreatableType<MenuServicePath>(uri, 0, 1, "MenuServicePath", "You cannot create a MenuServicePath");
-    qmlRegisterSingletonType<DBusApplicationMenuRegistry>(uri, 0, 1, "ApplicationMenuRegistry", menuRegistry);
 }
 
 void ApplicationMenuPlugin::initializeEngine(QQmlEngine *engine, const char *uri)

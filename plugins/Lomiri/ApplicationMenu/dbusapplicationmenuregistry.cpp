@@ -31,6 +31,20 @@ DBusApplicationMenuRegistry::DBusApplicationMenuRegistry(QObject *parent)
     }
 }
 
+QString DBusApplicationMenuRegistry::name() const
+{
+    return m_name;
+}
+
+void DBusApplicationMenuRegistry::setName(const QString &newName)
+{
+    qDebug()<<Q_FUNC_INFO;
+    if (m_name == newName)
+        return;
+    m_name = newName;
+    emit nameChanged();
+}
+
 DBusApplicationMenuRegistry::~DBusApplicationMenuRegistry()
 {
     QDBusConnection connection = QDBusConnection::sessionBus();

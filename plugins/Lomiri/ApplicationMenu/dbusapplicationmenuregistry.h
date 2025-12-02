@@ -23,12 +23,23 @@ class DBusApplicationMenuRegistry : public ApplicationMenuRegistry,
                                     protected QDBusContext
 {
     Q_OBJECT
+    QML_ELEMENT
+    QML_SINGLETON
+    Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged FINAL)
+
 public:
     ~DBusApplicationMenuRegistry();
     static ApplicationMenuRegistry* instance();
 
-protected:
+    QString name() const;
+    void setName(const QString &newName);
+
+// protected:
     explicit DBusApplicationMenuRegistry(QObject *parent = 0);
+signals:
+    void nameChanged();
+private:
+    QString m_name;
 };
 
 #endif // DBUSAPPLICATIONMENUREGISTRY_H
