@@ -26,6 +26,7 @@
 ScreenshotDirectory::ScreenshotDirectory(QObject *parent)
     : QObject(parent)
 {
+    qDebug()<<Q_FUNC_INFO;
     QDir screenshotsDir;
     if (qEnvironmentVariableIsSet("LOMIRI_TESTING")) {
         QTemporaryDir tDir;

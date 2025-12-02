@@ -22,5 +22,4 @@
 void ScreenshotDirectoryPlugin::registerTypes(const char *uri)
 {
     Q_ASSERT(uri == QLatin1String("ScreenshotDirectory"));
-    qmlRegisterType<ScreenshotDirectory>(uri, 0, 1, "ScreenshotDirectory");
 }
