@@ -22,6 +22,4 @@
 void GlobalShortcutPlugin::registerTypes(const char *uri)
 {
     Q_ASSERT(uri == QLatin1String("Lomiri.Platform"));
-
-    qmlRegisterSingletonType<Platform>(uri, 1, 0, "Platform", [](QQmlEngine*, QJSEngine*) -> QObject* { return new Platform; });
 }
