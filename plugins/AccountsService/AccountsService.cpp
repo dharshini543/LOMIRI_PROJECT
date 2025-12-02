@@ -147,6 +147,7 @@ QString AccountsService::user() const
 
 void AccountsService::setUser(const QString &user)
 {
+    qDebug()<<Q_FUNC_INFO;
     if (user.isEmpty() || m_user == user)
         return;
 
