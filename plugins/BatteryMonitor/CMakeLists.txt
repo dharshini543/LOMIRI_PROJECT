@@ -1,10 +1,19 @@
-set(SRC
+cmake_minimum_required(VERSION 3.17)
+project(BatteryMonitor LANGUAGES CXX)
+
+find_package(Qt6DBus REQUIRED)
+find_package(Qt6 REQUIRED COMPONENTS Qml)
+set(CMAKE_AUTOMOC ON)
+
+qt_add_qml_module(BatteryMonitor
+    URI BatteryMonitor
+    VERSION 1.0
+    SOURCES
+    plugin.h
     plugin.cpp
+    BatteryMonitor.h
     BatteryMonitor.cpp
 )
 
-add_library(BatteryMonitor MODULE ${SRC})
+target_link_libraries(BatteryMonitor PRIVATE Qt6::DBus Qt6::Qml)
 
-target_link_libraries(BatteryMonitor Qt5::DBus Qt5::Qml)
-
-add_lomiri_plugin(BatteryMonitor 1.0 BatteryMonitor TARGETS BatteryMonitor)

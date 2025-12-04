@@ -7,6 +7,7 @@
 #include <QDBusInterface>
 #include <QDBusConnection>
 #include <QDBusObjectPath>
+#include <qqmlintegration.h>
 
 #define GET "Get"
 #define UPOWER_PROPERTIES "org.freedesktop.UPower.Device"
@@ -24,39 +25,42 @@ enum {
     ON_BATTERY = 2
 };
 
-class BatteryMonitor: public QObject {
-  Q_OBJECT
-  Q_PROPERTY(qint64 timeToFull READ timeToFull NOTIFY timeToFullChanged)
-  Q_PROPERTY(bool charging READ charging NOTIFY chargingChanged)
-  Q_PROPERTY(bool fullyCharged READ isFullyCharged NOTIFY fullyChargedChanged)
+class BatteryMonitor: public QObject
+{
+    Q_OBJECT
+    QML_ELEMENT
+    QML_SINGLETON
+    Q_PROPERTY(qint64 timeToFull READ timeToFull NOTIFY timeToFullChanged)
+    Q_PROPERTY(bool charging READ charging NOTIFY chargingChanged)
+    Q_PROPERTY(bool fullyCharged READ isFullyCharged NOTIFY fullyChargedChanged)
 
 public:
-  BatteryMonitor();
+    BatteryMonitor();
 
-  bool hasBattery();
-  bool charging();
-  bool isFullyCharged();
-  qint64 timeToFull();
+    bool hasBattery();
+    bool charging();
+    bool isFullyCharged();
+    qint64 timeToFull();
 
-  Q_INVOKABLE uint state();
+    Q_INVOKABLE uint state();
 
-  enum Error {
-      NO_BATTERY = -1,
-      NO_TIMETOFULL = -2
-  };
-  Q_ENUM(Error)
+    enum Error {
+        NO_BATTERY = -1,
+        NO_TIMETOFULL = -2
+    };
+    Q_ENUM(Error)
 
 public Q_SLOTS:
-  void propertiesChanged(QString string, QVariantMap map, QStringList list);
+    void propertiesChanged(QString string, QVariantMap map, QStringList list);
 
 Q_SIGNALS:
-  void chargingChanged();
-  void timeToFullChanged();
-  void fullyChargedChanged();
+    void chargingChanged();
+    void timeToFullChanged();
+    void fullyChargedChanged();
 
 private:
-  QDBusInterface *m_iface;
-  QDBusObjectPath m_displayPath;
+    QDBusInterface *m_iface;
+    QDBusObjectPath m_displayPath;
 };
 
 #endif

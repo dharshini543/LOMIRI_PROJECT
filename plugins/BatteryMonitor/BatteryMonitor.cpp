@@ -2,6 +2,7 @@
 
 BatteryMonitor::BatteryMonitor()
 {
+    qDebug()<<Q_FUNC_INFO;
     QDBusConnection::systemBus().connect("org.freedesktop.UPower", "/org/freedesktop/UPower/devices/DisplayDevice", "org.freedesktop.DBus.Properties", "PropertiesChanged", this, SLOT(propertiesChanged(QString, QVariantMap, QStringList)));
     m_iface = new QDBusInterface("org.freedesktop.UPower", "/org/freedesktop/UPower/devices/DisplayDevice", "org.freedesktop.DBus.Properties", QDBusConnection::systemBus());
 }
@@ -26,6 +27,7 @@ bool BatteryMonitor::hasBattery()
 
 uint BatteryMonitor::state()
 {
+    qDebug()<<Q_FUNC_INFO;
     if (!hasBattery())
         return UNKNOWN;
 
