@@ -38,6 +38,7 @@ ProcessControl::ProcessControl(QObject* parent):
     QObject(parent),
     d_ptr(new ProcessControlPrivate(this))
 {
+    qDebug()<<Q_FUNC_INFO;
 }
 
 ProcessControl::~ProcessControl() = default;

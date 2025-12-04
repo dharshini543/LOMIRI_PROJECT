@@ -37,5 +37,4 @@ static QObject *service_provider(QQmlEngine *engine, QJSEngine *scriptEngine)
 void ProcessControlPlugin::registerTypes(const char *uri)
 {
     Q_ASSERT(uri == QLatin1String("ProcessControl"));
-    qmlRegisterSingletonType<ProcessControl>(uri, 0, 1, "ProcessControl", service_provider);
 }
