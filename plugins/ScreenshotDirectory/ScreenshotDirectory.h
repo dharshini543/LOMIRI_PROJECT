@@ -30,7 +30,7 @@ public:
     explicit ScreenshotDirectory(QObject *parent = 0);
     ~ScreenshotDirectory() = default;
 
-public Q_SLOTS:
+public slots:
     QString makeFileName() const;
 
 private:
