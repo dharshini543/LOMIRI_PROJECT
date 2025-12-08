@@ -44,11 +44,13 @@
 
 #include <QObject>
 #include <QAbstractListModel>
+#include <qqmlintegration.h>
 #include "qinputinfo.h"
 
 class QDeclarativeInputDeviceModel : public QAbstractListModel
 {
     Q_OBJECT
+    QML_ELEMENT
     Q_DISABLE_COPY(QDeclarativeInputDeviceModel)
     Q_PROPERTY(QInputDevice::InputType deviceFilter READ deviceFilter WRITE setDeviceFilter NOTIFY deviceFilterChanged)
 
@@ -80,20 +82,20 @@ public:
     Q_INVOKABLE QInputDevice *get(int index) const;
     QHash<int, QByteArray> roleNames() const override;
 
-Q_SIGNALS:
+signals:
     void deviceAdded(const QString &devicePath);
     void deviceRemoved(const QString &devicePath);
     void deviceFilterChanged(const QInputDevice::InputType filter);
     void countChanged();
 
-public Q_SLOTS:
+public slots:
     void updateDeviceList();
 private:
     QInputDeviceManager *deviceInfo;
     QVector<QInputDevice *> inputDevices;
     QInputDevice::InputType currentFilter;
 
-private Q_SLOTS:
+private slots:
     void addedDevice(const QString &);
     void removedDevice(const QString &path);
 

@@ -20,13 +20,6 @@
 // self
 #include "plugin.h"
 
-// local
-#include "qdeclarativeinputdevicemodel_p.h"
-
 void InputInfoPlugin::registerTypes(const char *uri)
 {
-    int major = 0;
-    int minor = 1;
-    qmlRegisterType<QDeclarativeInputDeviceModel>(uri, major, minor, "InputDeviceModel");
-    qmlRegisterType<QInputDevice>(uri, major, minor, "InputInfo");
 }

@@ -47,6 +47,7 @@
 #include <QMap>
 #include <QSocketNotifier>
 #include <QDebug>
+#include <qqmlintegration.h>
 
 class QInputDeviceManagerPrivate;
 class QInputDevicePrivate;
@@ -57,6 +58,7 @@ class QInputDeviceManager;
 class QInputDevice : public QObject
 {
     Q_OBJECT
+    QML_NAMED_ELEMENT(InputDevice)
     friend class QInputDeviceManagerPrivate;
 
 public:
@@ -119,7 +121,7 @@ public:
     QMap <QString, QInputDevice *> deviceMap();
     Q_INVOKABLE QVector <QInputDevice *> deviceListOfType(QInputDevice::InputType filter);
 
-Q_SIGNALS:
+signals:
 
     void deviceAdded(const QString & devicePath);
     void deviceRemoved(const QString & devicePath);
@@ -128,7 +130,7 @@ Q_SIGNALS:
     void deviceCountChanged(int count);
     void deviceFilterChanged(const QInputDevice::InputType filter);
 
-public Q_SLOTS:
+public slots:
     void addedDevice(const QString & devicePath);
 
 private:

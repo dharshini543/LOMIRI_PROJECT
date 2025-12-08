@@ -72,7 +72,7 @@ public:
     static QInputDeviceManagerPrivate * instance();
     QInputDevice::InputType currentFilter;
 
-Q_SIGNALS:
+signals:
     void deviceAdded(const QString &);
     void deviceRemoved(const QString &);
     void ready();
@@ -88,7 +88,7 @@ private:
     struct udev *udevice;
     void addDetails(struct udev_device *);
 
-private Q_SLOTS:
+private slots:
     void onUDevChanges();
     void init();
 };

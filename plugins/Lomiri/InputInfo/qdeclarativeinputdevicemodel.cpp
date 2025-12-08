@@ -46,6 +46,7 @@ QDeclarativeInputDeviceModel::QDeclarativeInputDeviceModel(QObject *parent) :
     deviceInfo(new QInputDeviceManager),
     currentFilter(QInputDevice::Unknown)
 {
+    qDebug()<<Q_FUNC_INFO;
     connect(deviceInfo,SIGNAL(ready()),this,SLOT(updateDeviceList()));
     connect(deviceInfo, &QInputDeviceManager::deviceAdded,this,&QDeclarativeInputDeviceModel::addedDevice);
     connect(deviceInfo, &QInputDeviceManager::deviceRemoved,this,&QDeclarativeInputDeviceModel::removedDevice);
