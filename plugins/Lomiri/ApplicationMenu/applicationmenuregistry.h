@@ -69,7 +69,7 @@ public:
                              const QString &service);
     void UnregisterSurfaceMenu(const QString &surfaceId, const QDBusObjectPath &menuObjectPath);
 
-Q_SIGNALS:
+signals:
     void appMenuRegistered(uint processId);
     void appMenuUnregistered(uint processId);
 
