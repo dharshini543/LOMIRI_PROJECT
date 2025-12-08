@@ -37,11 +37,11 @@ public:
     QDBusPendingReply<QVariant> getUserPropertyAsync(const QString &user, const QString &interface, const QString &property);
     QDBusPendingCall setUserPropertyAsync(const QString &user, const QString &interface, const QString &property, const QVariant &value);
 
-Q_SIGNALS:
+signals:
     void propertiesChanged(const QString &user, const QString &interface, const QStringList &changed);
     void maybeChanged(const QString &user); // Standard properties might have changed
 
-private Q_SLOTS:
+private slots:
     void propertiesChangedSlot(const QString &interface, const QVariantMap &changed, const QStringList &invalid);
     void maybeChangedSlot();
 

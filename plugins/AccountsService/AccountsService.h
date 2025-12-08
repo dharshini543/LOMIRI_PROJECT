@@ -118,7 +118,7 @@ public:
     QStringList keymaps() const;
     void setKeymaps(const QStringList &keymaps);
 
-Q_SIGNALS:
+signals:
     void userChanged();
     void demoEdgesChanged();
     void demoEdgesCompletedChanged();
@@ -137,7 +137,7 @@ Q_SIGNALS:
     void keymapsChanged();
     void pinCodePromptManagerChanged();
 
-private Q_SLOTS:
+private slots:
     void onPropertiesChanged(const QString &user, const QString &interface, const QStringList &changed);
     void onMaybeChanged(const QString &user);
 
