@@ -55,7 +55,7 @@ public:
 
     bool isMultiSession() const;
 
-private Q_SLOTS:
+private slots:
     void init();
 
 private:
