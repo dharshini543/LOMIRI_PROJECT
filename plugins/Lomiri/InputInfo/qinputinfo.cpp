@@ -184,8 +184,7 @@ QInputDeviceManager::QInputDeviceManager(QObject *parent) :
 {
     connect(d_ptr, &QInputDeviceManagerPrivate::deviceAdded,this,&QInputDeviceManager::addedDevice);
     connect(d_ptr, &QInputDeviceManagerPrivate::deviceRemoved,this,&QInputDeviceManager::deviceRemoved);
-
-    connect(d_ptr,SIGNAL(ready()),this,SIGNAL(ready()));
+    connect(d_ptr, &QInputDeviceManagerPrivate::ready, this, &QInputDeviceManager::ready);
 }
 
 /*
