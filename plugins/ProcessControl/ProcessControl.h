@@ -40,7 +40,7 @@ public:
     void setAwakenProcesses(const QStringList &processes);
     QStringList awakenProcesses() const;
 
-Q_SIGNALS:
+signals:
     void awakenProcessesChanged();
 
 private:
