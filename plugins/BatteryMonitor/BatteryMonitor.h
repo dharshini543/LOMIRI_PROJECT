@@ -50,10 +50,10 @@ public:
     };
     Q_ENUM(Error)
 
-public Q_SLOTS:
+public slots:
     void propertiesChanged(QString string, QVariantMap map, QStringList list);
 
-Q_SIGNALS:
+signals:
     void chargingChanged();
     void timeToFullChanged();
     void fullyChargedChanged();
