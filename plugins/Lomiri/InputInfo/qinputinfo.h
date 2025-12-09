@@ -58,7 +58,7 @@ class QInputDeviceManager;
 class QInputDevice : public QObject
 {
     Q_OBJECT
-    QML_NAMED_ELEMENT(InputDevice)
+    QML_ELEMENT
     friend class QInputDeviceManagerPrivate;
 
 public:

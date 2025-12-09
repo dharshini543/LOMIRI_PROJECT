@@ -67,6 +67,7 @@ QInputDevice::QInputDevice(QObject *parent) :
     QObject(parent),
     d_ptr(new QInputDevicePrivate(this))
 {
+    qDebug()<<Q_FUNC_INFO;
 }
 
 /*
