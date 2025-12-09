@@ -24,6 +24,7 @@
 SessionBroadcast::SessionBroadcast(QObject* parent)
   : QObject(parent)
 {
+    qDebug()<<Q_FUNC_INFO;
     m_username = QString::fromUtf8(g_get_user_name());
 
     auto connection = QDBusConnection::SM_BUSNAME();
@@ -35,11 +36,23 @@ SessionBroadcast::SessionBroadcast(QObject* parent)
                                        QStringLiteral("com.lomiri.Shell.Greeter.Broadcast"),
                                        connection, this);
 
-    connect(m_broadcaster, SIGNAL(StartUrl(const QString &, const QString &)),
-            this, SLOT(onStartUrl(const QString &, const QString &)));
+    QDBusConnection::systemBus().connect(
+        "com.lomiri.Shell.Greeter.Broadcast",
+        "/com/lomiri/Shell/Greeter/Broadcast",
+        "com.lomiri.Shell.Greeter.Broadcast",
+        "StartUrl",
+        this,
+        SLOT(onStartUrl(QString,QString))
+        );
 
-    connect(m_broadcaster, SIGNAL(ShowHome(const QString &)),
-            this, SLOT(onShowHome(const QString &)));
+    QDBusConnection::systemBus().connect(
+        "com.lomiri.Shell.Greeter.Broadcast",
+        "/com/lomiri/Shell/Greeter/Broadcast",
+        "com.lomiri.Shell.Greeter.Broadcast",
+        "ShowHome",
+        this,
+        SLOT(onShowHome(QString))
+        );
 }
 
 void SessionBroadcast::requestUrlStart(const QString &username, const QString &url)
@@ -49,6 +62,7 @@ void SessionBroadcast::requestUrlStart(const QString &username, const QString &u
 
 void SessionBroadcast::requestHomeShown(const QString &username)
 {
+    qDebug()<<Q_FUNC_INFO;
     m_broadcaster->asyncCall(QStringLiteral("RequestHomeShown"), username);
 }
 
