@@ -44,7 +44,7 @@
 QDeclarativeInputDeviceModel::QDeclarativeInputDeviceModel(QObject *parent) :
     QAbstractListModel(parent),
     deviceInfo(new QInputDeviceManager),
-    currentFilter(QInputDevice::Unknown)
+    currentFilter(InputInfoDevice::Unknown)
 {
     qDebug()<<Q_FUNC_INFO;
     connect(deviceInfo, &QInputDeviceManager::ready, this, &QDeclarativeInputDeviceModel::updateDeviceList);
@@ -100,7 +100,7 @@ int QDeclarativeInputDeviceModel::rowCount(const QModelIndex &parent) const
 int QDeclarativeInputDeviceModel::indexOf(const QString &devicePath) const
 {
     int idx(-1);
-    Q_FOREACH (QInputDevice *device, inputDevices) {
+    Q_FOREACH (InputInfoDevice *device, inputDevices) {
         idx++;
         if (device->devicePath() == devicePath) return idx;
     }
@@ -108,7 +108,7 @@ int QDeclarativeInputDeviceModel::indexOf(const QString &devicePath) const
     return -1;
 }
 
-QInputDevice *QDeclarativeInputDeviceModel::get(int index) const
+InputInfoDevice *QDeclarativeInputDeviceModel::get(int index) const
 {
     if (index < 0 || index > inputDevices.count())
         return 0;
@@ -117,7 +117,7 @@ QInputDevice *QDeclarativeInputDeviceModel::get(int index) const
 
 void QDeclarativeInputDeviceModel::updateDeviceList()
 {
-    QVector <QInputDevice *> newDevices = deviceInfo->deviceListOfType(currentFilter);
+    QVector <InputInfoDevice *> newDevices = deviceInfo->deviceListOfType(currentFilter);
 
     int numNew = newDevices.count();
 
@@ -131,7 +131,7 @@ void QDeclarativeInputDeviceModel::updateDeviceList()
             Q_EMIT countChanged();
         } else if (i != j) {
             // changed its position -> move it
-            QInputDevice* device = inputDevices.value(j);
+            InputInfoDevice* device = inputDevices.value(j);
             beginMoveRows(QModelIndex(), j, j, QModelIndex(), i);
             inputDevices.remove(j);
             inputDevices.insert(i, device);
@@ -179,7 +179,7 @@ QHash<int,QByteArray> QDeclarativeInputDeviceModel::roleNames() const
 /*
  * Returns the currently set device filter.
  * */
-QInputDevice::InputType QDeclarativeInputDeviceModel::deviceFilter()
+InputInfoDevice::InputType QDeclarativeInputDeviceModel::deviceFilter()
 {
     return currentFilter;
 }
@@ -187,7 +187,7 @@ QInputDevice::InputType QDeclarativeInputDeviceModel::deviceFilter()
 /*
  * Sets the current  input device filter to filter.
  * */
-void QDeclarativeInputDeviceModel::setDeviceFilter(QInputDevice::InputType filter)
+void QDeclarativeInputDeviceModel::setDeviceFilter(InputInfoDevice::InputType filter)
 {
     if (filter != currentFilter) {
         deviceInfo->setDeviceFilter(filter);

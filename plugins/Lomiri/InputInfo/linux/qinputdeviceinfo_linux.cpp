@@ -52,7 +52,7 @@
 
 QInputDeviceManagerPrivate::QInputDeviceManagerPrivate(QObject *parent) :
     QObject(parent),
-    currentFilter(QInputDevice::Unknown),
+    currentFilter(InputInfoDevice::Unknown),
     udevMonitor(0),
     udevice(0)
 {
@@ -99,7 +99,7 @@ void QInputDeviceManagerPrivate::init()
 
             dev = udev_device_new_from_syspath(udevice, path);
             if (qstrcmp(udev_device_get_subsystem(dev), "input") == 0 ) {
-                QInputDevice *iDevice = addDevice(dev);
+                InputInfoDevice *iDevice = addDevice(dev);
                 if (iDevice && !iDevice->devicePath().isEmpty()) {
                     deviceMap.insert(iDevice->devicePath(),iDevice);
                 }
@@ -115,33 +115,33 @@ void QInputDeviceManagerPrivate::init()
     Q_EMIT ready();
 }
 
-QInputDevice::InputTypeFlags QInputDeviceManagerPrivate::getInputTypeFlags(struct udev_device *dev)
+InputInfoDevice::InputTypeFlags QInputDeviceManagerPrivate::getInputTypeFlags(struct udev_device *dev)
 {
-    QInputDevice::InputTypeFlags flags = QInputDevice::Unknown;
+    InputInfoDevice::InputTypeFlags flags = InputInfoDevice::Unknown;
     if (qstrcmp(udev_device_get_property_value(dev, "ID_INPUT_KEY"), "1") == 0 ) {
-        flags |= QInputDevice::Button;
+        flags |= InputInfoDevice::Button;
     }
     if (qstrcmp(udev_device_get_property_value(dev, "ID_INPUT_MOUSE"), "1") == 0) {
-        flags |= QInputDevice::Mouse;
+        flags |= InputInfoDevice::Mouse;
     }
     if (qstrcmp(udev_device_get_property_value(dev, "ID_INPUT_TOUCHPAD"), "1") == 0) {
-        flags |= QInputDevice::TouchPad;
+        flags |= InputInfoDevice::TouchPad;
     }
     if (qstrcmp(udev_device_get_property_value(dev, "ID_INPUT_TOUCHSCREEN"), "1") == 0
             || qstrcmp(udev_device_get_property_value(dev, "ID_INPUT_TABLET"), "1") == 0) {
-        flags |= QInputDevice::TouchScreen;
+        flags |= InputInfoDevice::TouchScreen;
     }
     if (qstrcmp(udev_device_get_property_value(dev, "ID_INPUT_KEYBOARD"), "1") == 0 ) {
-        flags |= QInputDevice::Keyboard;
+        flags |= InputInfoDevice::Keyboard;
     }
     if (!QString::fromLatin1(udev_device_get_property_value(dev, "SW")).isEmpty()) {
-        flags |= QInputDevice::Switch;
+        flags |= InputInfoDevice::Switch;
     }
 
     return flags;
 }
 
-QInputDevice *QInputDeviceManagerPrivate::addDevice(struct udev_device *udev)
+InputInfoDevice *QInputDeviceManagerPrivate::addDevice(struct udev_device *udev)
 {
     QString eventPath = QString::fromLatin1(udev_device_get_sysname(udev));
 
@@ -154,7 +154,7 @@ QInputDevice *QInputDeviceManagerPrivate::addDevice(struct udev_device *udev)
     struct libevdev *dev = NULL;
     int fd;
     int rc = 1;
-    QInputDevice *inputDevice;
+    InputInfoDevice *inputDevice;
     inputDevice = addUdevDevice(udev);
     if (!inputDevice) {
         return Q_NULLPTR;
@@ -219,9 +219,9 @@ void QInputDeviceManagerPrivate::removeDevice(const QString &path)
     }
 }
 
-QInputDevice *QInputDeviceManagerPrivate::addUdevDevice(struct udev_device *udev)
+InputInfoDevice *QInputDeviceManagerPrivate::addUdevDevice(struct udev_device *udev)
 {
-    QInputDevice *iDevice;
+    InputInfoDevice *iDevice;
 
     struct udev_list_entry *list;
     struct udev_list_entry *node;
@@ -236,7 +236,7 @@ QInputDevice *QInputDeviceManagerPrivate::addUdevDevice(struct udev_device *udev
         QString token = infoList.at(0);
 
         token.prepend(QStringLiteral("/dev/input/"));
-        iDevice = new QInputDevice(this);
+        iDevice = new InputInfoDevice(this);
         iDevice->setDevicePath(token);
     } else {
         return Q_NULLPTR;
@@ -276,7 +276,7 @@ void QInputDeviceManagerPrivate::onUDevChanges()
                     return;
                 }
 
-                QInputDevice *iDevice = addDevice(dev);
+                InputInfoDevice *iDevice = addDevice(dev);
                 if (!iDevice) {
                     delete iDevice;
                     return;

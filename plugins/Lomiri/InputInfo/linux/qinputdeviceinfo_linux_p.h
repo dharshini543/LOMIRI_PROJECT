@@ -58,7 +58,7 @@ public:
     QList <int> switches;
     QList <int> relativeAxis;
     QList <int> absoluteAxis;
-    QInputDevice::InputTypeFlags type;
+    InputInfoDevice::InputTypeFlags type;
 };
 
 class QInputDeviceManagerPrivate : public QObject
@@ -67,10 +67,10 @@ class QInputDeviceManagerPrivate : public QObject
 public:
     explicit QInputDeviceManagerPrivate(QObject *parent = 0);
     ~QInputDeviceManagerPrivate();
-    QVector <QInputDevice *> deviceList;
-    QMap <QString, QInputDevice *> deviceMap;
+    QVector <InputInfoDevice *> deviceList;
+    QMap <QString, InputInfoDevice *> deviceMap;
     static QInputDeviceManagerPrivate * instance();
-    QInputDevice::InputType currentFilter;
+    InputInfoDevice::InputType currentFilter;
 
 signals:
     void deviceAdded(const QString &);
@@ -78,13 +78,13 @@ signals:
     void ready();
 
 private:
-    QInputDevice *addDevice(struct udev_device *udev);
-    QInputDevice *addUdevDevice(struct udev_device *);
+    InputInfoDevice *addDevice(struct udev_device *udev);
+    InputInfoDevice *addUdevDevice(struct udev_device *);
 
-    QInputDevice *addDevice(const QString &path);
+    InputInfoDevice *addDevice(const QString &path);
     void removeDevice(const QString &path);
     struct udev_monitor *udevMonitor;
-    QInputDevice::InputTypeFlags getInputTypeFlags(struct udev_device *);
+    InputInfoDevice::InputTypeFlags getInputTypeFlags(struct udev_device *);
     struct udev *udevice;
     void addDetails(struct udev_device *);
 
