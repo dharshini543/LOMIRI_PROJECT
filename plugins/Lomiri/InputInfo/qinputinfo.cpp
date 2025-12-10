@@ -59,11 +59,11 @@ QInputDeviceManagerPrivate * QInputDeviceManagerPrivate::instance()
 
 QInputDevicePrivate::QInputDevicePrivate(QObject *parent) :
     QObject(parent),
-    type(QInputDevice::Unknown)
+    type(LomiriInputDevice::Unknown)
 {
 }
 
-QInputDevice::QInputDevice(QObject *parent) :
+LomiriInputDevice::LomiriInputDevice(QObject *parent) :
     QObject(parent),
     d_ptr(new QInputDevicePrivate(this))
 {
@@ -73,7 +73,7 @@ QInputDevice::QInputDevice(QObject *parent) :
 /*
  * Returns the name of this input device.
  */
-QString QInputDevice::name() const
+QString LomiriInputDevice::name() const
 {
     return d_ptr->name;
 }
@@ -81,7 +81,7 @@ QString QInputDevice::name() const
 /*
  * Sets the name of this input device to \b name.
  */
-void QInputDevice::setName(const QString &name)
+void LomiriInputDevice::setName(const QString &name)
 {
     d_ptr->name = name;
 }
@@ -89,7 +89,7 @@ void QInputDevice::setName(const QString &name)
 /*
  * Returns the device path of this device.
  */
-QString QInputDevice::devicePath() const
+QString LomiriInputDevice::devicePath() const
 {
     return d_ptr->devicePath;
 }
@@ -97,7 +97,7 @@ QString QInputDevice::devicePath() const
 /*
  * Sets the device ppath of this device to /b path.
  */
-void QInputDevice::setDevicePath(const QString &path)
+void LomiriInputDevice::setDevicePath(const QString &path)
 {
     d_ptr->devicePath = path;
 }
@@ -105,7 +105,7 @@ void QInputDevice::setDevicePath(const QString &path)
 /*
  * Returns the number of buttons this device has.
  */
-QList <int> QInputDevice::buttons() const
+QList <int> LomiriInputDevice::buttons() const
 {
     return d_ptr->buttons;
 }
@@ -113,7 +113,7 @@ QList <int> QInputDevice::buttons() const
 /*
  * Adds a button
  */
-void QInputDevice::addButton(int buttonCode)
+void LomiriInputDevice::addButton(int buttonCode)
 {
     d_ptr->buttons.append(buttonCode);
 }
@@ -121,7 +121,7 @@ void QInputDevice::addButton(int buttonCode)
 /*
  * Returns the number of switch of this device.
  */
-QList <int> QInputDevice::switches() const
+QList <int> LomiriInputDevice::switches() const
 {
     return d_ptr->switches;
 }
@@ -129,7 +129,7 @@ QList <int> QInputDevice::switches() const
 /*
  * Adds a switch
  */
-void QInputDevice::addSwitch(int switchCode)
+void LomiriInputDevice::addSwitch(int switchCode)
 {
     d_ptr->switches.append(switchCode);
 }
@@ -137,14 +137,14 @@ void QInputDevice::addSwitch(int switchCode)
 /*
  * Returns a list of the relative axis of this device
  */
-QList <int> QInputDevice::relativeAxis() const
+QList <int> LomiriInputDevice::relativeAxis() const
 {
     return d_ptr->relativeAxis;
 }
 
 /*
  */
-void QInputDevice::addRelativeAxis(int axisCode)
+void LomiriInputDevice::addRelativeAxis(int axisCode)
 {
     d_ptr->relativeAxis.append(axisCode);
 }
@@ -152,29 +152,29 @@ void QInputDevice::addRelativeAxis(int axisCode)
 /*
  * Returns a list of the absolute axis of this device
  */
-QList <int> QInputDevice::absoluteAxis() const
+QList <int> LomiriInputDevice::absoluteAxis() const
 {
     return d_ptr->absoluteAxis;
 }
 
 /*
  */
-void QInputDevice::addAbsoluteAxis(int axisCode)
+void LomiriInputDevice::addAbsoluteAxis(int axisCode)
 {
     d_ptr->absoluteAxis.append(axisCode);
 }
 
 /*
- * Returns a QInputDevice::InputTypeFlags of all the types of types.
+ * Returns a LomiriInputDevice::InputTypeFlags of all the types of types.
  */
-QInputDevice::InputTypeFlags QInputDevice::type() const
+LomiriInputDevice::InputTypeFlags LomiriInputDevice::type() const
 {
     return d_ptr->type;
 }
 
 /*
  */
-void QInputDevice::setType(QInputDevice::InputTypeFlags type) //? setTypes?
+void LomiriInputDevice::setType(LomiriInputDevice::InputTypeFlags type) //? setTypes?
 {
     d_ptr->type = type;
 }
@@ -191,7 +191,7 @@ QInputDeviceManager::QInputDeviceManager(QObject *parent) :
 /*
  * Returns a QMap of known input devices.
  */
-QMap <QString, QInputDevice *> QInputDeviceManager::deviceMap()
+QMap <QString, LomiriInputDevice *> QInputDeviceManager::deviceMap()
 {
     return d_ptr->deviceMap;
 }
@@ -206,13 +206,13 @@ void QInputDeviceManager::addedDevice(const QString & devicePath)
 /*
  * Returns a QVector of InputDevices of type filter
  * */
-QVector <QInputDevice *> QInputDeviceManager::deviceListOfType(QInputDevice::InputType filter)
+QVector <LomiriInputDevice *> QInputDeviceManager::deviceListOfType(LomiriInputDevice::InputType filter)
 {
-    QVector <QInputDevice *> dList;
-    QMapIterator<QString, QInputDevice *> i(d_ptr->deviceMap);
+    QVector <LomiriInputDevice *> dList;
+    QMapIterator<QString, LomiriInputDevice *> i(d_ptr->deviceMap);
     while (i.hasNext()) {
         i.next();
-        if (i.value()->type().testFlag(filter) || filter == QInputDevice::Unknown) {
+        if (i.value()->type().testFlag(filter) || filter == LomiriInputDevice::Unknown) {
             dList.append(i.value());
         }
     }
@@ -220,26 +220,26 @@ QVector <QInputDevice *> QInputDeviceManager::deviceListOfType(QInputDevice::Inp
 }
 
 /*
- * Returns the number of input devices with the currently set QInputDevice::InputType filter.
+ * Returns the number of input devices with the currently set LomiriInputDevice::InputType filter.
  * If no device filter has been set, returns number of all available input devices.
  * If filter has not been set, returns all available input devices
  */
 int QInputDeviceManager::deviceCount() const
 {
-    return deviceCount(static_cast< QInputDevice::InputType >(d_ptr->currentFilter));
+    return deviceCount(static_cast< LomiriInputDevice::InputType >(d_ptr->currentFilter));
 }
 
 /*
  * Returns the number of input devices of the type filter.
  */
-int QInputDeviceManager::deviceCount(const QInputDevice::InputType filter) const
+int QInputDeviceManager::deviceCount(const LomiriInputDevice::InputType filter) const
 {
     int dList = 0;
-    QMapIterator<QString, QInputDevice *> i(d_ptr->deviceMap);
+    QMapIterator<QString, LomiriInputDevice *> i(d_ptr->deviceMap);
     while (i.hasNext()) {
         i.next();
-//        qDebug() << i.value()->name() << i.value()->devicePath();
-//        qDebug() << i.value()->type() << i.value()->type().testFlag(filter);
+        //        qDebug() << i.value()->name() << i.value()->devicePath();
+        //        qDebug() << i.value()->type() << i.value()->type().testFlag(filter);
 
         if (i.value()->type().testFlag(filter)) {
             dList++;
@@ -251,7 +251,7 @@ int QInputDeviceManager::deviceCount(const QInputDevice::InputType filter) const
 /*
  * Returns the currently set device filter.
  * */
-QInputDevice::InputType QInputDeviceManager::deviceFilter()
+LomiriInputDevice::InputType QInputDeviceManager::deviceFilter()
 {
     return d_ptr->currentFilter;
 }
@@ -259,11 +259,11 @@ QInputDevice::InputType QInputDeviceManager::deviceFilter()
 /*
  * Sets the current  input device filter to filter.
  * */
-void QInputDeviceManager::setDeviceFilter(QInputDevice::InputType filter)
+void QInputDeviceManager::setDeviceFilter(LomiriInputDevice::InputType filter)
 {
     if (filter !=  d_ptr->currentFilter) {
-     d_ptr->currentFilter = filter;
-     Q_EMIT deviceFilterChanged(filter);
+        d_ptr->currentFilter = filter;
+        Q_EMIT deviceFilterChanged(filter);
     }
 }
 

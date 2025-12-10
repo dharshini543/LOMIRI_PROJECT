@@ -51,11 +51,11 @@
 
 class QInputDeviceManagerPrivate;
 class QInputDevicePrivate;
-class QInputDevice;
+class LomiriInputDevice;
 
 class QInputDeviceManager;
 
-class QInputDevice : public QObject
+class LomiriInputDevice : public QObject
 {
     Q_OBJECT
     QML_ELEMENT
@@ -76,14 +76,14 @@ public:
     Q_DECLARE_FLAGS(InputTypeFlags, InputType)
     Q_FLAG(InputTypeFlags)
 
-    explicit QInputDevice(QObject *parent = 0);
+    explicit LomiriInputDevice(QObject *parent = 0);
     QString name() const;
     QString devicePath() const;
     QList <int> buttons() const; //keys event code
     QList <int> switches() const;
     QList <int> relativeAxis() const;
     QList <int> absoluteAxis() const;
-    QInputDevice::InputTypeFlags type() const;
+    LomiriInputDevice::InputTypeFlags type() const;
 
 private:
 
@@ -94,12 +94,12 @@ private:
     void addSwitch(int);
     void addRelativeAxis(int);
     void addAbsoluteAxis(int);
-    void setType(QInputDevice::InputTypeFlags flags);
+    void setType(LomiriInputDevice::InputTypeFlags flags);
 
 };
 
-Q_DECLARE_METATYPE(QInputDevice::InputType)
-Q_DECLARE_METATYPE(QInputDevice::InputTypeFlags)
+Q_DECLARE_METATYPE(LomiriInputDevice::InputType)
+Q_DECLARE_METATYPE(LomiriInputDevice::InputTypeFlags)
 
 class QInputDeviceManagerPrivate;
 
@@ -107,19 +107,19 @@ class QInputDeviceManager : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(int deviceCount READ deviceCount NOTIFY deviceCountChanged)
-    Q_PROPERTY(QInputDevice::InputType deviceFilter READ deviceFilter WRITE setDeviceFilter NOTIFY deviceFilterChanged)
+    Q_PROPERTY(LomiriInputDevice::InputType deviceFilter READ deviceFilter WRITE setDeviceFilter NOTIFY deviceFilterChanged)
 public:
 
     explicit QInputDeviceManager(QObject *parent = 0);
 
     int deviceCount() const;
-    int deviceCount(const QInputDevice::InputType filter) const;
+    int deviceCount(const LomiriInputDevice::InputType filter) const;
 
-    void setDeviceFilter(QInputDevice::InputType filter);
-    QInputDevice::InputType deviceFilter();
+    void setDeviceFilter(LomiriInputDevice::InputType filter);
+    LomiriInputDevice::InputType deviceFilter();
 
-    QMap <QString, QInputDevice *> deviceMap();
-    Q_INVOKABLE QVector <QInputDevice *> deviceListOfType(QInputDevice::InputType filter);
+    QMap <QString, LomiriInputDevice *> deviceMap();
+    Q_INVOKABLE QVector <LomiriInputDevice *> deviceListOfType(LomiriInputDevice::InputType filter);
 
 signals:
 
@@ -128,7 +128,7 @@ signals:
 
     void ready();
     void deviceCountChanged(int count);
-    void deviceFilterChanged(const QInputDevice::InputType filter);
+    void deviceFilterChanged(const LomiriInputDevice::InputType filter);
 
 public slots:
     void addedDevice(const QString & devicePath);
