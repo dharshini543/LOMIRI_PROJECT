@@ -25,6 +25,7 @@ Q_GLOBAL_STATIC(GlobalShortcutRegistry, registry)
 GlobalShortcut::GlobalShortcut(QQuickItem *parent)
     : QQuickItem(parent)
 {
+    qDebug()<<Q_FUNC_INFO;
 }
 
 QVariant GlobalShortcut::shortcut() const
@@ -38,7 +39,7 @@ void GlobalShortcut::setShortcut(const QVariant &shortcut)
         return;
 
     m_shortcut = shortcut;
-    registry->addShortcut(shortcut, this);
+    registry->addShortcut(shortcut.toInt(), this);
     Q_EMIT shortcutChanged(shortcut);
 }
 

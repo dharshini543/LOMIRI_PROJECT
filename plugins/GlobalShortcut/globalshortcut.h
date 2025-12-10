@@ -33,6 +33,7 @@
 class GlobalShortcut: public QQuickItem
 {
     Q_OBJECT
+    QML_ELEMENT
     /**
      * The shortcut itself
      */
@@ -56,7 +57,7 @@ protected:
     void keyPressEvent(QKeyEvent * event) override;
     void keyReleaseEvent(QKeyEvent * event) override;
 
-Q_SIGNALS:
+signals:
     void shortcutChanged(const QVariant &shortcut);
     /**
      * Emitted when a global keypress of @p shortcut is detected
