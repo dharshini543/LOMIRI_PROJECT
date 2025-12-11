@@ -21,10 +21,12 @@
 ModemConnectivity::ModemConnectivity(QObject *parent)
     : QObject(parent)
 {
+    qDebug()<<Q_FUNC_INFO;
 }
 
 void ModemConnectivity::unlockAllModems()
 {
+    qDebug()<<Q_FUNC_INFO;
     const QDBusMessage msg = QDBusMessage::createMethodCall(QStringLiteral("com.lomiri.connectivity1"),
                                                             QStringLiteral("/com/lomiri/connectivity1/Private"),
                                                             QStringLiteral("com.lomiri.connectivity1.Private"),

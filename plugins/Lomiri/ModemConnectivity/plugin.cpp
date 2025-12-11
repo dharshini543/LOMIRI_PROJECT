@@ -29,6 +29,4 @@ static QObject *service_provider(QQmlEngine *engine, QJSEngine *scriptEngine)
 void BackendPlugin::registerTypes(const char *uri)
 {
     Q_ASSERT(uri == QLatin1String("Lomiri.ModemConnectivity"));
-
-    qmlRegisterSingletonType<ModemConnectivity>(uri, 0, 1, "ModemConnectivity", service_provider);
 }
