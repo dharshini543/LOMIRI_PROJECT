@@ -31,5 +31,4 @@ static QObject *broadcast_provider(QQmlEngine *engine, QJSEngine *scriptEngine)
 void SessionBroadcastPlugin::registerTypes(const char *uri)
 {
     Q_ASSERT(uri == QLatin1String("SessionBroadcast"));
-    // qmlRegisterSingletonType<SessionBroadcast>(uri, 0, 1, "SessionBroadcast", broadcast_provider);
 }

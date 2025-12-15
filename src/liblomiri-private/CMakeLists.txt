@@ -2,7 +2,13 @@ set(LIB_NAME "lomiri-private")
 set(SOVERSION 0)
 set(VERSION ${SOVERSION}.0.0)
 
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTORCC ON)
+set(CMAKE_AUTOUIC ON)
+
 project(lib${LIB_NAME})
+
+find_package(Qt6DBus REQUIRED)
 
 set(lib${LIB_NAME}_SRCS
     abstractdbusservicemonitor.cpp
@@ -20,7 +26,7 @@ set_target_properties(${LIB_NAME} PROPERTIES
     SOVERSION ${SOVERSION}
     )
 
-target_link_libraries(${LIB_NAME} Qt5::DBus)
+target_link_libraries(${LIB_NAME} Qt6::DBus)
 
 # install library
 install(TARGETS ${LIB_NAME}

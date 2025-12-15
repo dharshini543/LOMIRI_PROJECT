@@ -24,6 +24,7 @@ OrientationLock::OrientationLock(QObject *parent)
     , m_enabled(false)
     , m_savedOrientation(Qt::PortraitOrientation)
 {
+    qDebug()<<Q_FUNC_INFO;
     m_systemSettings = g_settings_new("com.lomiri.touch.system");
     g_signal_connect(m_systemSettings, "changed::rotation-lock",
                      G_CALLBACK(OrientationLock::onEnabledChangedProxy), this);

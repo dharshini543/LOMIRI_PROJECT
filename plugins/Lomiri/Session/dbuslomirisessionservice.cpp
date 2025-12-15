@@ -324,6 +324,7 @@ Q_GLOBAL_STATIC(DBusLomiriSessionServicePrivate, d)
 DBusLomiriSessionService::DBusLomiriSessionService()
     : LomiriDBusObject(QStringLiteral("/com/lomiri/Shell/Session"), QStringLiteral("com.lomiri.Shell"))
 {
+    qDebug()<<Q_FUNC_INFO;
     if (!d->logindSessionPath.isEmpty()) {
         // connect our PromptLock() slot to the logind's session Lock() signal
         QDBusConnection::SM_BUSNAME().connect(LOGIN1_SERVICE, d->logindSessionPath, LOGIN1_SESSION_IFACE, QStringLiteral("Lock"), this, SLOT(PromptLock()));
